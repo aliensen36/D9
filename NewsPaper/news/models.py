@@ -51,7 +51,7 @@ class Post(models.Model):
     # Автоматически добавляемые дата и время создания
     created_date = models.DateTimeField(auto_now_add=True)
     # Cвязь «многие ко многим» с моделью Category (с дополнительной моделью PostCategory)
-    post = models.ManyToManyField(Category, through="PostCategory")
+    category = models.ManyToManyField(Category, through="PostCategory")
     # Заголовок статьи/новости
     title = models.CharField(max_length=255)
     # Текст статьи/новости
@@ -78,6 +78,9 @@ class Post(models.Model):
 
     def __str__(self):
         return f'{self.title.title()}: {self.text[:20]}'
+
+    def __str__(self):
+        return f'{self.category}'
 
     def get_absolute_url(self):
         return reverse('separate_news', args=[str(self.id)])

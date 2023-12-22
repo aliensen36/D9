@@ -18,10 +18,10 @@ Post
         <table>
             <tr>
                 <td>Заголовок</td>
-                <td>Категория</td>
                 <td>Дата публикации</td>
                 <td>Превью статьи</td>
                 <td>Тип публикации</td>
+                <td>Категория</td>
             </tr>
 
             {% for separate_news in category_list %}
@@ -30,6 +30,7 @@ Post
                 <td>{{ separate_news.created_date|date:'d M Y' }}</td>
                 <td>{{ separate_news.text|truncatewords:20|censor }}</td>
                 <td>{{ separate_news.get_type_display }}</td>
+                <td>{{ separate_news.category }}</td>
 
                 <td>
                     {% for category in news.category.all %}

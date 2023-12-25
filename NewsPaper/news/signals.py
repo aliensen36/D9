@@ -3,6 +3,8 @@ from django.db.models.signals import m2m_changed
 from django.dispatch import receiver
 from django.template.loader import render_to_string
 from .models import PostCategory
+from ..NewsPaper import settings
+
 
 def send_notifications(preview, pk, title, subscribers):
     html_content = render_to_string(
@@ -26,7 +28,7 @@ def send_notifications(preview, pk, title, subscribers):
 
 @receiver(m2m_changed, sender=PostCategory)
 def notify_about_new_post(sender, instance, created, **kwargs):
-    if kwargs['action'] == 'post_add':
+    if kwargs['action'] == 'news.add_post':
         categories = instance.category.all()
         subscribers_emails = []
 

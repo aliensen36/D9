@@ -19,7 +19,7 @@ def my_job():
     last_week = today - datetime.timedelta(days=7)
     posts = Post.objects.filter(created_date__gte=last_week)
     categories = set(posts.values_list('category__name', flat=True))
-    subscribers = set(Category.objects.filter(name__in=categories).values_list('subscribers_email'))
+    subscribers = set(Category.objects.filter(name__in=categories).values_list('subscribers_email', flat=True))
 
     html = render_to_string(
         'daily_post.html',
@@ -54,10 +54,10 @@ class Command(BaseCommand):
         # добавляем работу нашему задачнику
         scheduler.add_job(
             my_job,
-            trigger=CronTrigger(day_of_week="tue", hour="18", minute="10"),
-        id = "my_job",
-        max_instances = 1,
-        replace_existing = True,
+            trigger=CronTrigger(day_of_week="tue", hour="21", minute="33"),
+            id = "my_job",
+            max_instances = 1,
+            replace_existing = True,
         )
         logger.info("Added job 'my_job'.")
 

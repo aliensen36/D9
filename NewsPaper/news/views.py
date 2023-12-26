@@ -133,7 +133,7 @@ class IndexView(LoginRequiredMixin, TemplateView):
         context['is_not_authors'] = not self.request.user.groups.filter(name='authors').exists()
         return context
 
-class CategoryListView(ListView):
+class CategoryListView(PostList):
     model = Post
     template_name = 'category_list.html'
     context_object_name = 'category_list'

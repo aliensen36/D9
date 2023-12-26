@@ -90,6 +90,9 @@ class PostCategory(models.Model):
     # Связь «один ко многим» с моделью Category
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
 
+    def __str__(self):
+        return self.category.name
+
 class Comment(models.Model):
     # Связь «один ко многим» с моделью Post
     post = models.ForeignKey(Post, on_delete=models.CASCADE)
